@@ -1,0 +1,1 @@
+console.log("Smart Home Energy Saver Dashboard Loaded");
