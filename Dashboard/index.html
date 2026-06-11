@@ -1,44 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Smart Home Energy Saver Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <h1>IoT-Based Smart Home Energy Saver System</h1>
+<div class="header">
+    <h1>🏠 IoT-Based Smart Home Energy Saver System</h1>
 
-    <div class="card">
-        <h2>Motion Status</h2>
-        <p id="motion">No Motion Detected</p>
-    </div>
+    <button onclick="toggleTheme()">🌙 Dark Mode</button>
 
-    <div class="card">
-        <h2>Light Status</h2>
-        <p id="light">OFF</p>
-    </div>
+    <button onclick="downloadReport()">📄 Download Report</button>
+</div>
 
-    <div class="card">
-    <h2>Room Occupancy</h2>
-    <p>Empty</p>
+<div class="dashboard">
+
+<div class="card">
+<h2>🕒 Current Time</h2>
+<p id="clock"></p>
 </div>
 
 <div class="card">
-    <h2>Last Activity</h2>
-    <p>No Activity</p>
+<h2>🚶 Motion Status</h2>
+<p id="motion">No Motion Detected</p>
 </div>
 
-    <div class="card">
-        <h2>Energy Saved</h2>
-        <p>0 Units</p>
-    </div>
+<div class="card">
+<h2>💡 Light Status</h2>
+<p id="light">OFF</p>
+</div>
 
-    <div class="card">
-        <h2>Energy Wastage Alert</h2>
-        <p>No Alerts</p>
-    </div>
+<div class="card">
+<h2>🏠 Room Occupancy</h2>
+<p id="occupancy">Empty</p>
+</div>
+
+<div class="card">
+<h2>⚡ Energy Saved</h2>
+<progress value="70" max="100"></progress>
+<p>70%</p>
+</div>
+
+<div class="card">
+<h2>⚠️ Energy Alert</h2>
+<p id="alert">No Alerts</p>
+</div>
+
+</div>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
