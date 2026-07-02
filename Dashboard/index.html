@@ -18,41 +18,89 @@
 
 <div class="dashboard">
 
-<div class="card">
-<h2>🕒 Current Time</h2>
-<p id="clock"></p>
-</div>
+    <div class="card">
+        <h2>🚶 Motion Status</h2>
+        <p id="motion">No Motion Detected</p>
+    </div>
 
-<div class="card">
-<h2>🚶 Motion Status</h2>
-<p id="motion">No Motion Detected</p>
-</div>
+    <div class="card">
+        <h2>💡 Light Status</h2>
+        <p id="light">OFF</p>
+    </div>
 
-<div class="card">
-<h2>💡 Light Status</h2>
-<p id="light">OFF</p>
-</div>
+    <div class="card">
+        <h2>🏠 Room Occupancy</h2>
+        <p id="occupancy">Empty</p>
+    </div>
 
-<div class="card">
-<h2>🏠 Room Occupancy</h2>
-<p id="occupancy">Empty</p>
-</div>
+    <div class="card">
+        <h2>📌 Activity</h2>
+        <p id="activity">No Activity</p>
+    </div>
 
-<div class="card">
-<h2>⚡ Energy Saved</h2>
-<progress value="70" max="100"></progress>
-<p>70%</p>
-</div>
+    <div class="card">
+        <h2>⚡ Energy Used</h2>
+        <p id="energyUsed">0.000 Wh</p>
+    </div>
 
-<div class="card">
-<h2>⚠️ Energy Alert</h2>
-<p id="alert">No Alerts</p>
-</div>
+    <div class="card">
+        <h2>🌱 Energy Saved</h2>
+        <p id="energySaved">0.000 Wh</p>
+    </div>
 
 </div>
 
 <script src="script.js"></script>
 
-</body>
+<script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBH-CvLwg13Ke-lQq8AheUkQqBkCi7m9F4",
+  authDomain: "smart-home-energy-saver.firebaseapp.com",
+  databaseURL: "https://smart-home-energy-saver-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "smart-home-energy-saver",
+  storageBucket: "smart-home-energy-saver.firebasestorage.app",
+  messagingSenderId: "967585927221",
+  appId: "1:967585927221:web:6cc2e9f8b6bf3154e0217c"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const homeRef = ref(db, "home");
+
+onValue(homeRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    if(data){
+
+        document.getElementById("motion").innerText =
+            data.motion || "No Motion Detected";
+
+        document.getElementById("light").innerText =
+            data.light || "OFF";
+
+        document.getElementById("occupancy").innerText =
+            data.occupancy || "Empty";
+
+        document.getElementById("activity").innerText =
+            data.motion === "Motion Detected"
+            ? "Person Detected"
+            : "No Activity";
+        document.getElementById("energyUsed").innerText =
+(Number(data.energyUsed || 0)).toFixed(3) + " Wh";
+
+document.getElementById("energySaved").innerText =
+(Number(data.energySaved || 0)).toFixed(3) + " Wh";
+
+    }
+});
+
+</script>
+
+</body>
 </html>
