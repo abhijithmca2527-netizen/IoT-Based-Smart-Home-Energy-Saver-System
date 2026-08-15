@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Smart Home Energy Saver Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="header">
+
     <h1>🏠 IoT-Based Smart Home Energy Saver System</h1>
 
-    <button onclick="toggleTheme()">🌙 Dark Mode</button>
+    <div class="header-buttons">
+        <button id="themeButton" onclick="toggleTheme()">
+            🌙 Dark Mode
+        </button>
 
-    <button onclick="downloadReport()">📄 Download Report</button>
+        <button onclick="downloadReport()">
+            📄 Download Report
+        </button>
+    </div>
+
 </div>
 
 <div class="dashboard">
@@ -38,12 +50,12 @@
         <p id="activity">No Activity</p>
     </div>
 
-    <div class="card">
+    <div class="card energy-used">
         <h2>⚡ Energy Used</h2>
         <p id="energyUsed">0.000 Wh</p>
     </div>
 
-    <div class="card">
+    <div class="card energy-saved">
         <h2>🌱 Energy Saved</h2>
         <p id="energySaved">0.000 Wh</p>
     </div>
@@ -54,53 +66,97 @@
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    onValue
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBH-CvLwg13Ke-lQq8AheUkQqBkCi7m9F4",
-  authDomain: "smart-home-energy-saver.firebaseapp.com",
-  databaseURL: "https://smart-home-energy-saver-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "smart-home-energy-saver",
-  storageBucket: "smart-home-energy-saver.firebasestorage.app",
-  messagingSenderId: "967585927221",
-  appId: "1:967585927221:web:6cc2e9f8b6bf3154e0217c"
+
+    apiKey: "AIzaSyBH-CvLwg13Ke-lQq8AheUkQqBkCi7m9F4",
+
+    authDomain:
+        "smart-home-energy-saver.firebaseapp.com",
+
+    databaseURL:
+        "https://smart-home-energy-saver-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "smart-home-energy-saver",
+
+    storageBucket:
+        "smart-home-energy-saver.firebasestorage.app",
+
+    messagingSenderId:
+        "967585927221",
+
+    appId:
+        "1:967585927221:web:6cc2e9f8b6bf3154e0217c"
 };
 
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const db = getDatabase(app);
 
+
+// Read /home from Firebase
 const homeRef = ref(db, "home");
+
 
 onValue(homeRef, (snapshot) => {
 
     const data = snapshot.val();
 
-    if(data){
+    console.log("Firebase Data:", data);
 
+
+    if (data) {
+
+        // Motion
         document.getElementById("motion").innerText =
             data.motion || "No Motion Detected";
 
+
+        // Light
         document.getElementById("light").innerText =
             data.light || "OFF";
 
+
+        // Occupancy
         document.getElementById("occupancy").innerText =
             data.occupancy || "Empty";
 
+
+        // Activity
         document.getElementById("activity").innerText =
             data.motion === "Motion Detected"
             ? "Person Detected"
             : "No Activity";
+
+
+        // Energy Used
         document.getElementById("energyUsed").innerText =
-(Number(data.energyUsed || 0)).toFixed(3) + " Wh";
+            Number(data.energyUsed || 0).toFixed(3)
+            + " Wh";
 
-document.getElementById("energySaved").innerText =
-(Number(data.energySaved || 0)).toFixed(3) + " Wh";
 
+        // Energy Saved
+        document.getElementById("energySaved").innerText =
+            Number(data.energySaved || 0).toFixed(3)
+            + " Wh";
     }
+
 });
 
 </script>
 
 </body>
+
 </html>
