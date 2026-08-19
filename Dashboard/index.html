@@ -12,150 +12,146 @@
 
 <body>
 
-<div class="header">
+    <header class="header">
 
-    <h1>🏠 IoT-Based Smart Home Energy Saver System</h1>
+        <h1>🏠 IoT-Based Smart Home Energy Saver System</h1>
 
-    <div class="header-buttons">
-        <button id="themeButton" onclick="toggleTheme()">
-            🌙 Dark Mode
-        </button>
+        <div class="header-buttons">
 
-        <button onclick="downloadReport()">
-            📄 Download Report
-        </button>
-    </div>
+            <button id="themeButton" onclick="toggleTheme()">
+                🌙 Dark Mode
+            </button>
 
-</div>
+            <button onclick="downloadReport()">
+                📄 Download Report
+            </button>
 
-<div class="dashboard">
+        </div>
 
-    <div class="card">
-        <h2>🚶 Motion Status</h2>
-        <p id="motion">No Motion Detected</p>
-    </div>
-
-    <div class="card">
-        <h2>💡 Light Status</h2>
-        <p id="light">OFF</p>
-    </div>
-
-    <div class="card">
-        <h2>🏠 Room Occupancy</h2>
-        <p id="occupancy">Empty</p>
-    </div>
-
-    <div class="card">
-        <h2>📌 Activity</h2>
-        <p id="activity">No Activity</p>
-    </div>
-
-    <div class="card energy-used">
-        <h2>⚡ Energy Used</h2>
-        <p id="energyUsed">0.000 Wh</p>
-    </div>
-
-    <div class="card energy-saved">
-        <h2>🌱 Energy Saved</h2>
-        <p id="energySaved">0.000 Wh</p>
-    </div>
-
-</div>
-
-<script src="script.js"></script>
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getDatabase,
-    ref,
-    onValue
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const firebaseConfig = {
-
-    apiKey: "AIzaSyBH-CvLwg13Ke-lQq8AheUkQqBkCi7m9F4",
-
-    authDomain:
-        "smart-home-energy-saver.firebaseapp.com",
-
-    databaseURL:
-        "https://smart-home-energy-saver-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-    projectId:
-        "smart-home-energy-saver",
-
-    storageBucket:
-        "smart-home-energy-saver.firebasestorage.app",
-
-    messagingSenderId:
-        "967585927221",
-
-    appId:
-        "1:967585927221:web:6cc2e9f8b6bf3154e0217c"
-};
+    </header>
 
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+    <main class="dashboard">
 
-const db = getDatabase(app);
+        <div class="card">
+            <h2>🚶 Motion Status</h2>
+            <p id="motion">No Motion Detected</p>
+        </div>
 
+        <div class="card">
+            <h2>💡 Light Status</h2>
+            <p id="light">OFF</p>
+        </div>
 
-// Read /home from Firebase
-const homeRef = ref(db, "home");
+        <div class="card">
+            <h2>🏠 Room Occupancy</h2>
+            <p id="occupancy">Empty</p>
+        </div>
 
+        <div class="card">
+            <h2>📌 Activity</h2>
+            <p id="activity">No Activity</p>
+        </div>
 
-onValue(homeRef, (snapshot) => {
+        <div class="card energy-used">
+            <h2>⚡ Energy Used</h2>
+            <p id="energyUsed">0.000 Wh</p>
+        </div>
 
-    const data = snapshot.val();
+        <div class="card energy-saved">
+            <h2>🌱 Energy Saved</h2>
+            <p id="energySaved">0.000 Wh</p>
+        </div>
 
-    console.log("Firebase Data:", data);
-
-
-    if (data) {
-
-        // Motion
-        document.getElementById("motion").innerText =
-            data.motion || "No Motion Detected";
-
-
-        // Light
-        document.getElementById("light").innerText =
-            data.light || "OFF";
-
-
-        // Occupancy
-        document.getElementById("occupancy").innerText =
-            data.occupancy || "Empty";
-
-
-        // Activity
-        document.getElementById("activity").innerText =
-            data.motion === "Motion Detected"
-            ? "Person Detected"
-            : "No Activity";
+    </main>
 
 
-        // Energy Used
-        document.getElementById("energyUsed").innerText =
-            Number(data.energyUsed || 0).toFixed(3)
-            + " Wh";
+    <script src="script.js"></script>
+
+    <script type="module">
+
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import {
+            getDatabase,
+            ref,
+            onValue
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-        // Energy Saved
-        document.getElementById("energySaved").innerText =
-            Number(data.energySaved || 0).toFixed(3)
-            + " Wh";
-    }
+        const firebaseConfig = {
 
-});
+            apiKey: "AIzaSyBH-CvLwg13Ke-lQq8AheUkQqBkCi7m9F4",
 
-</script>
+            authDomain:
+                "smart-home-energy-saver.firebaseapp.com",
+
+            databaseURL:
+                "https://smart-home-energy-saver-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+            projectId:
+                "smart-home-energy-saver",
+
+            storageBucket:
+                "smart-home-energy-saver.firebasestorage.app",
+
+            messagingSenderId:
+                "967585927221",
+
+            appId:
+                "1:967585927221:web:6cc2e9f8b6bf3154e0217c"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase(app);
+
+        const homeRef = ref(db, "home");
+
+
+        onValue(homeRef, (snapshot) => {
+
+            const data = snapshot.val();
+
+            console.log("Firebase Data:", data);
+
+
+            if (!data) {
+                return;
+            }
+
+
+            document.getElementById("motion").innerText =
+                data.motion || "No Motion Detected";
+
+
+            document.getElementById("light").innerText =
+                data.light || "OFF";
+
+
+            document.getElementById("occupancy").innerText =
+                data.occupancy || "Empty";
+
+
+            document.getElementById("activity").innerText =
+                data.motion === "Motion Detected"
+                    ? "Person Detected"
+                    : "No Activity";
+
+
+            document.getElementById("energyUsed").innerText =
+                Number(data.energyUsed || 0).toFixed(3) + " Wh";
+
+
+            document.getElementById("energySaved").innerText =
+                Number(data.energySaved || 0).toFixed(3) + " Wh";
+
+        });
+
+    </script>
 
 </body>
 

@@ -1,6 +1,4 @@
-console.log(
-    "Smart Home Energy Saver Dashboard Loaded"
-);
+console.log("Smart Home Energy Saver Dashboard Loaded");
 
 
 // ======================================
@@ -15,11 +13,7 @@ function toggleTheme() {
         document.getElementById("themeButton");
 
 
-    if (
-        document.body.classList.contains(
-            "dark-mode"
-        )
-    ) {
+    if (document.body.classList.contains("dark-mode")) {
 
         themeButton.innerText =
             "☀️ Light Mode";
@@ -29,8 +23,7 @@ function toggleTheme() {
             "dark"
         );
 
-    }
-    else {
+    } else {
 
         themeButton.innerText =
             "🌙 Dark Mode";
@@ -41,7 +34,6 @@ function toggleTheme() {
         );
 
     }
-
 }
 
 
@@ -52,20 +44,14 @@ function toggleTheme() {
 window.addEventListener("DOMContentLoaded", () => {
 
     const savedTheme =
-        localStorage.getItem(
-            "dashboardTheme"
-        );
+        localStorage.getItem("dashboardTheme");
 
 
     if (savedTheme === "dark") {
 
-        document.body.classList.add(
-            "dark-mode"
-        );
+        document.body.classList.add("dark-mode");
 
-        document.getElementById(
-            "themeButton"
-        ).innerText =
+        document.getElementById("themeButton").innerText =
             "☀️ Light Mode";
 
     }
@@ -80,69 +66,61 @@ window.addEventListener("DOMContentLoaded", () => {
 function downloadReport() {
 
     const report = `
+IoT-Based Smart Home Energy Saver System
+=========================================
 
-Smart Home Energy Saver Report
-
-=====================================
-
-Motion Status :
+Motion Status:
 ${document.getElementById("motion").innerText}
 
-Light Status :
+Light Status:
 ${document.getElementById("light").innerText}
 
-Room Occupancy :
+Room Occupancy:
 ${document.getElementById("occupancy").innerText}
 
-Activity :
+Activity:
 ${document.getElementById("activity").innerText}
 
-Energy Used :
+Energy Used:
 ${document.getElementById("energyUsed").innerText}
 
-Energy Saved :
+Energy Saved:
 ${document.getElementById("energySaved").innerText}
 
-=====================================
+=========================================
 
-Generated On :
+Generated On:
 ${new Date().toLocaleString()}
-
-Generated Successfully
-
 `;
 
 
-    const blob =
-        new Blob(
-            [report],
-            {
-                type: "text/plain"
-            }
-        );
+    const blob = new Blob(
+        [report],
+        {
+            type: "text/plain"
+        }
+    );
 
 
     const url =
         URL.createObjectURL(blob);
 
 
-    const a =
+    const link =
         document.createElement("a");
 
 
-    a.href = url;
+    link.href = url;
 
-    a.download =
+    link.download =
         "Smart_Home_Energy_Report.txt";
 
 
-    document.body.appendChild(a);
+    document.body.appendChild(link);
 
-    a.click();
+    link.click();
 
-    document.body.removeChild(a);
-
+    document.body.removeChild(link);
 
     URL.revokeObjectURL(url);
-
 }

@@ -2,16 +2,21 @@
    GENERAL
 ====================================== */
 
+* {
+    box-sizing: border-box;
+}
+
+
 body {
+    margin: 0;
+
+    min-height: 100vh;
+
     font-family: Arial, sans-serif;
 
     background: #f4f6f9;
 
     color: #222;
-
-    margin: 0;
-
-    min-height: 100vh;
 
     transition:
         background 0.3s ease,
@@ -24,60 +29,63 @@ body {
 ====================================== */
 
 .header {
-
     background: #2c3e50;
 
     color: white;
 
     text-align: center;
 
-    padding: 20px;
+    padding: 24px 20px;
 }
 
 
 .header h1 {
+    margin: 0 0 16px;
 
-    margin-top: 0;
-
-    margin-bottom: 15px;
+    font-size: 30px;
 }
 
 
 .header-buttons {
-
     display: flex;
 
     justify-content: center;
 
-    gap: 10px;
+    align-items: center;
+
+    gap: 12px;
 
     flex-wrap: wrap;
 }
 
 
 .header button {
-
-    padding: 10px 15px;
+    padding: 10px 16px;
 
     border: none;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    cursor: pointer;
+    background: white;
+
+    color: #222;
 
     font-size: 14px;
 
+    cursor: pointer;
+
     transition:
         transform 0.2s ease,
-        opacity 0.2s ease;
+        box-shadow 0.2s ease;
 }
 
 
 .header button:hover {
-
     transform: translateY(-2px);
 
-    opacity: 0.9;
+    box-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.15);
 }
 
 
@@ -86,22 +94,20 @@ body {
 ====================================== */
 
 .dashboard {
-
     display: grid;
 
     grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(260px, 1fr)
-        );
+        repeat(3, minmax(240px, 1fr));
 
     gap: 20px;
 
-    padding: 25px;
+    width: 100%;
 
-    max-width: 1200px;
+    max-width: 1050px;
 
-    margin: auto;
+    margin: 0 auto;
+
+    padding: 32px 24px;
 }
 
 
@@ -110,47 +116,58 @@ body {
 ====================================== */
 
 .card {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 125px;
+
+    padding: 24px;
 
     background: white;
-
-    padding: 25px;
 
     border-radius: 12px;
 
     text-align: center;
 
     box-shadow:
-        0 2px 10px
-        rgba(0, 0, 0, 0.15);
+        0 3px 12px
+        rgba(0, 0, 0, 0.12);
 
     transition:
         transform 0.2s ease,
+        box-shadow 0.2s ease,
         background 0.3s ease,
         color 0.3s ease;
 }
 
 
 .card:hover {
-
     transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 18px
+        rgba(0, 0, 0, 0.14);
 }
 
 
 .card h2 {
+    margin: 0 0 16px;
 
     font-size: 20px;
-
-    margin-top: 0;
 }
 
 
 .card p {
+    margin: 0;
 
-    font-size: 19px;
+    font-size: 18px;
 
     font-weight: bold;
-
-    margin-bottom: 0;
 }
 
 
@@ -159,13 +176,11 @@ body {
 ====================================== */
 
 .energy-used {
-
     border-left: 6px solid #ff9800;
 }
 
 
 .energy-saved {
-
     border-left: 6px solid #4caf50;
 }
 
@@ -175,7 +190,6 @@ body {
 ====================================== */
 
 body.dark-mode {
-
     background: #121212;
 
     color: white;
@@ -183,25 +197,22 @@ body.dark-mode {
 
 
 body.dark-mode .header {
-
     background: #1b1b1b;
 }
 
 
 body.dark-mode .card {
-
     background: #2d2d2d;
 
     color: white;
 
     box-shadow:
-        0 2px 12px
-        rgba(255, 255, 255, 0.08);
+        0 3px 12px
+        rgba(255, 255, 255, 0.06);
 }
 
 
 body.dark-mode .header button {
-
     background: #444;
 
     color: white;
@@ -209,14 +220,16 @@ body.dark-mode .header button {
 
 
 /* ======================================
-   PROGRESS
+   TABLET
 ====================================== */
 
-progress {
+@media (max-width: 900px) {
 
-    width: 100%;
+    .dashboard {
+        grid-template-columns:
+            repeat(2, minmax(220px, 1fr));
+    }
 
-    height: 20px;
 }
 
 
@@ -226,19 +239,25 @@ progress {
 
 @media (max-width: 600px) {
 
-    .header h1 {
+    .header {
+        padding: 20px 15px;
+    }
 
+
+    .header h1 {
         font-size: 22px;
     }
 
 
     .dashboard {
+        grid-template-columns: 1fr;
 
-        padding: 15px;
+        padding: 20px 15px;
     }
 
 
     .card {
+        min-height: 110px;
 
         padding: 20px;
     }
